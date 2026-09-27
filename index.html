@@ -263,6 +263,60 @@ section{padding:clamp(80px,10vw,130px) 0 0}
 .env-sec.opened .env-hint{display:none}
 @media (max-width:620px){.env .stamp{display:none}}
 
+
+/* defend vs attack, v2 */
+.duo{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;align-items:stretch}
+.side{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:20px;background:var(--card);transition:border-color .3s,box-shadow .3s}
+.side::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .35s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),var(--glow),transparent 60%)}
+.side.atk::after{background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--amber) 14%,transparent),transparent 60%)}
+.side:hover::after{opacity:1}
+.side:hover{box-shadow:var(--shadow)}
+.side.def:hover{border-color:color-mix(in srgb,var(--cyan) 45%,var(--line))}
+.side.atk:hover{border-color:color-mix(in srgb,var(--amber) 45%,var(--line))}
+.vis{position:relative;height:190px;overflow:hidden;border-bottom:1px solid var(--line)}
+.vis-def{background:radial-gradient(260px 150px at 50% 50%,var(--glow),transparent 75%)}
+.vis-def svg{display:block;width:100%;height:100%}
+.vis-def .ring{fill:none;stroke:var(--cyan);transform-box:fill-box;transform-origin:center;animation:ringp 3.2s ease-out infinite}
+.vis-def .ring.r2{animation-delay:1.6s}
+@keyframes ringp{0%{transform:scale(.6);opacity:.7}100%{transform:scale(1.5);opacity:0}}
+.vis-def .shell{fill:none;stroke:var(--cyan);stroke-width:1.5;stroke-dasharray:6 7;opacity:.7;transform-box:fill-box;transform-origin:center;animation:spin 28s linear infinite}
+.vis-def .cloud{fill:var(--card);stroke:var(--cyan);stroke-width:1.6}
+.vis-def .shield{fill:var(--cyan)}
+.vis-def .pk{fill:var(--red);animation:pk 3.6s cubic-bezier(.45,0,.6,1) infinite;transform-box:view-box}
+@keyframes pk{0%{transform:translateX(0);opacity:0}8%{opacity:1}62%{transform:translateX(118px);opacity:1;fill:var(--red)}66%{fill:var(--cyan)}78%{transform:translateX(104px);opacity:0}100%{opacity:0}}
+.vis-def .lbl{font-family:var(--mono);font-size:10px;fill:var(--muted)}
+.vis-atk{display:flex;flex-direction:column;justify-content:center;gap:10px;padding:18px 22px;background:#08111F;color:#DCE5F7;font-family:var(--mono);font-size:13.5px}
+.vis-atk .cap-line{text-align:center;font-size:10.5px;color:#8795B4;margin-top:2px}
+.vis-atk .row{display:flex;align-items:center;gap:10px;min-height:34px;padding:6px 12px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(160,185,235,.12);white-space:nowrap;overflow:hidden}
+.vis-atk .lab{flex:none;width:34px;font-size:11px;color:#8795B4}
+.vis-atk .m{flex:none;padding:1px 6px;border-radius:4px;background:rgba(95,225,230,.14);color:#5FE1E6;font-size:12px}
+.vis-atk .path{overflow:hidden;text-overflow:ellipsis}
+.vis-atk .who{color:#8795B4;overflow:hidden;text-overflow:ellipsis}
+.vis-atk .res{opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s}
+.vis-atk .res.show{opacity:1;transform:none}
+.vis-atk .code{flex:none;padding:1px 7px;border-radius:4px;font-weight:500}
+.vis-atk .code.ok{background:rgba(95,225,230,.16);color:#5FE1E6}
+.vis-atk .code.bad{background:rgba(255,178,36,.18);color:#FFB224}
+.vis-atk .verdict{margin-left:auto;flex:none;padding:2px 9px;border-radius:999px;font-size:11.5px;border:1px solid currentColor}
+.vis-atk .verdict.finding{color:#FFB224}.vis-atk .verdict.secure{color:#5FE1E6}
+.vis-atk .cur::after{content:"";display:inline-block;width:7px;height:14px;margin-left:2px;vertical-align:-2px;background:#FFB224;animation:blink 1s steps(1) infinite}
+.side-body{display:flex;flex-direction:column;flex:1;padding:26px 28px 28px}
+.side .k{align-self:flex-start;display:inline-block;padding:4px 10px;border-radius:999px;font-size:13px;font-weight:600;color:var(--cyan);background:var(--glow)}
+.side.atk .k{color:var(--amber);background:color-mix(in srgb,var(--amber) 14%,transparent)}
+.side h3{margin:12px 0 6px;font-family:var(--display);font-weight:700;font-size:clamp(30px,3.3vw,42px);line-height:1}
+.side .intro{margin:0 0 18px;color:var(--muted);max-width:48ch}
+.caps3{list-style:none;margin:0 0 auto;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.side.atk .caps3{grid-template-columns:1fr}
+.caps3 li{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start;padding:11px;border-radius:12px;border:1px solid transparent;transition:background .25s,border-color .25s}
+.caps3 li:hover{background:var(--bg);border-color:var(--line)}
+.caps3 svg{width:40px;height:40px;padding:9px;border-radius:10px;color:var(--cyan);background:var(--glow)}
+.side.atk .caps3 svg{color:var(--amber);background:color-mix(in srgb,var(--amber) 14%,transparent)}
+.caps3 b{display:block;font-family:var(--display);font-weight:600;font-size:16.5px;line-height:1.25}
+.caps3 span{display:block;margin-top:2px;color:var(--muted);font-size:14.5px;line-height:1.45}
+.side .stack{margin-top:20px;padding-top:16px;border-top:1px dashed var(--line)}
+@media (max-width:980px){.duo{grid-template-columns:1fr}}
+@media (max-width:560px){.caps3{grid-template-columns:1fr}.vis-atk .who{display:none}}
+
 /* terminal (inline) */
 .term-wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;align-items:start}
 .term-wrap .sh{margin-bottom:0}
@@ -309,6 +363,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   [data-rv]{opacity:1;transform:none}
+  .vis-atk .res{opacity:1;transform:none}
   html{scroll-behavior:auto}
   .js .intro>*,.js .rings{opacity:1;transform:none}
   .manifesto .w{opacity:1}
@@ -378,32 +433,39 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
   <section id="work">
     <div class="wrap">
       <div class="sh"><h2 class="decrypt">Blue team by default. Red team on purpose.</h2><p>Defense is where I spend most of my time. Offense is how I prove the defense holds.</p></div>
-      <div class="two">
-        <article class="cap card" data-rv="left">
-          <span class="k">Primary focus</span>
-          <h3>Defend the cloud</h3>
-          <p>The platform decides how bad any bug can get. I keep AWS small, private and watched.</p>
-          <ul>
-            <li><b>Cloud posture</b><span>Multi-account AWS audits with Prowler and Wiz, ranked by real risk.</span></li>
-            <li><b>Private networking</b><span>VPC and Transit Gateway designs with nothing public by accident.</span></li>
-            <li><b>Identity and access</b><span>IAM and SSO reviews that remove standing admin access.</span></li>
-            <li><b>Containers and EKS</b><span>Trivy image scans and kube-bench CIS checks before release.</span></li>
-            <li><b>Detection engineering</b><span>Wazuh SIEM, file integrity monitoring and Tines automation.</span></li>
-            <li><b>Policy as code</b><span>Cloud and host compliance rules in Rego and OVAL.</span></li>
-          </ul>
-          <div class="stack"><span>AWS</span><span>Wiz</span><span>Prowler</span><span>Rego</span><span>OVAL</span><span>Trivy</span><span>kube-bench</span><span>Wazuh</span><span>Splunk</span><span>Tines</span><span>Zscaler</span></div>
+      <div class="duo">
+        <article class="side def spot" data-rv="left">
+          <div class="vis vis-def"><svg viewBox="0 0 400 190" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+  <g transform="rotate(0 200 95)"><circle class="pk" cx="22" cy="95" r="3.6" style="animation-delay:0.0s"/></g><g transform="rotate(55 200 95)"><circle class="pk" cx="22" cy="95" r="3.6" style="animation-delay:0.6s"/></g><g transform="rotate(120 200 95)"><circle class="pk" cx="22" cy="95" r="3.6" style="animation-delay:1.2s"/></g><g transform="rotate(180 200 95)"><circle class="pk" cx="22" cy="95" r="3.6" style="animation-delay:1.8s"/></g><g transform="rotate(235 200 95)"><circle class="pk" cx="22" cy="95" r="3.6" style="animation-delay:2.4s"/></g><g transform="rotate(300 200 95)"><circle class="pk" cx="22" cy="95" r="3.6" style="animation-delay:3.0s"/></g>
+  <circle class="ring" cx="200" cy="95" r="58" stroke-width="1.2"/>
+  <circle class="ring r2" cx="200" cy="95" r="58" stroke-width="1.2"/>
+  <circle class="shell" cx="200" cy="95" r="60"/>
+  <path class="cloud" d="M170 112h62a17 17 0 0 0 2-34 24 24 0 0 0-45-7 18 18 0 0 0-21 17 12 12 0 0 0 2 24z"/>
+  <path class="shield" d="M201 80l11 4.5v8c0 6.5-4.6 11.2-11 13.2-6.4-2-11-6.7-11-13.2v-8z"/>
+  <path d="M196.5 93l3.2 3.2 6-6" fill="none" stroke="var(--card)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text class="lbl" x="200" y="178" text-anchor="middle">every request stops at the perimeter</text>
+</svg></div>
+          <div class="side-body">
+            <span class="k">Primary focus</span>
+            <h3>Defend the cloud</h3>
+            <p class="intro">The platform decides how bad any bug can get. I keep AWS small, private and watched, so one mistake stays one mistake.</p>
+            <ul class="caps3"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v3H9z"/><path d="M8 4.5H6V21h12V4.5h-2"/><path d="M9 13l2 2 4-4"/></svg><div><b>Cloud posture</b><span>Multi-account AWS audits with Prowler and Wiz, ranked by real risk.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v5M12 12l-5.5 5.5M12 12l5.5 5.5"/></svg><div><b>Private networking</b><span>VPC and Transit Gateway designs with nothing public by accident.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M14 9l2 2"/></svg><div><b>Identity and access</b><span>IAM and SSO reviews that remove standing admin access.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg><div><b>Containers and EKS</b><span>Trivy image scans and kube-bench CIS checks before release.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 12l6-6"/></svg><div><b>Detection engineering</b><span>Wazuh SIEM, file integrity monitoring and Tines automation.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4c-2 0-2 2-2 4s-2 4-2 4 2 0 2 4 0 4 2 4M16 4c2 0 2 2 2 4s2 4 2 4-2 0-2 4 0 4-2 4"/></svg><div><b>Policy as code</b><span>Cloud and host compliance rules in Rego and OVAL.</span></div></li></ul>
+            <div class="stack"><span>AWS</span><span>Wiz</span><span>Prowler</span><span>Rego</span><span>OVAL</span><span>Trivy</span><span>kube-bench</span><span>Wazuh</span><span>Splunk</span><span>Tines</span><span>Zscaler</span></div>
+          </div>
         </article>
-        <article class="cap atk card" data-rv="right">
-          <span class="k">Offensive testing</span>
-          <h3>Break the app</h3>
-          <p>Manual testing aimed at the bugs scanners walk past.</p>
-          <ul>
-            <li><b>Web and API testing</b><span>REST and GraphQL, tested by hand, role by role.</span></li>
-            <li><b>Authorization flaws</b><span>IDOR, broken function-level access, UI-only guards.</span></li>
-            <li><b>Tokens and sessions</b><span>JWT tampering, session handling, SSO flows.</span></li>
-            <li><b>Code and dependencies</b><span>Branch protection and dependency triage developers can act on.</span></li>
-          </ul>
-          <div class="stack"><span>Burp Suite Pro</span><span>OWASP ZAP</span><span>Nmap</span><span>sqlmap</span><span>Nuclei</span><span>Python</span></div>
+        <article class="side atk spot" data-rv="right">
+          <div class="vis vis-atk" id="atkVis" aria-hidden="true">
+            <div class="row req"><span class="lab">req</span><span class="m" id="avM">GET</span><span class="path" id="avP">/api/orders/1042</span><span class="who" id="avW">as another user</span></div>
+            <div class="row res show" id="avRes"><span class="lab">res</span><span class="code bad" id="avC">200</span><span class="who" id="avMsg">someone else's order came back</span><span class="verdict finding" id="avV">finding</span></div>
+            <div class="cap-line">checked request by request, role by role</div>
+          </div>
+          <div class="side-body">
+            <span class="k">Offensive testing</span>
+            <h3>Break the app</h3>
+            <p class="intro">Manual web, API and GraphQL testing aimed at the bugs scanners walk past. If the server trusts it, I test it.</p>
+            <ul class="caps3"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg><div><b>Web and API testing</b><span>REST and GraphQL, tested by hand, role by role.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 017.5-2"/></svg><div><b>Authorization flaws</b><span>IDOR, broken function-level access and UI-only guards.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16v4a2 2 0 000 4v4H4v-4a2 2 0 000-4z"/><path d="M10 8v2M10 12v2M10 16v2"/></svg><div><b>Tokens and sessions</b><span>JWT tampering, session handling and SSO flows.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="7" r="2"/><path d="M6 7v10M18 9c0 5-6 4-12 8"/></svg><div><b>Code and dependencies</b><span>Branch protection and dependency triage developers can act on.</span></div></li></ul>
+            <div class="stack"><span>Burp Suite Pro</span><span>OWASP ZAP</span><span>Nmap</span><span>sqlmap</span><span>Nuclei</span><span>Python</span></div>
+          </div>
         </article>
       </div>
     </div>
@@ -748,6 +810,37 @@ envBtn.addEventListener('click', () => {
   const letter = $('#letter'); letter.removeAttribute('tabindex');
   setTimeout(() => letter.focus({ preventScroll: true }), reduce ? 0 : 1300);
 });
+
+
+/* ================= attack mini demo ================= */
+(function(){
+  const SC = [
+    { m:'GET', p:'/api/orders/1042', w:'as another user', c:'200', msg:"someone else's order came back", v:'finding' },
+    { m:'POST', p:'/admin/users', w:'as a viewer', c:'403', msg:'server said no', v:'secure' },
+    { m:'GET', p:'/api/profile', w:'as the owner', c:'200', msg:'API sent fields the UI hides', v:'finding' },
+    { m:'GET', p:'/api/reports', w:'with a forged token', c:'401', msg:'token rejected', v:'secure' }
+  ];
+  const vis = $('#atkVis'); if (!vis || reduce) return;
+  const M = $('#avM'), P = $('#avP'), W = $('#avW'), RES = $('#avRes'), C = $('#avC'), MSG = $('#avMsg'), V = $('#avV');
+  let i = 0, active = false, timer = null;
+  function play(){
+    if (!active) return;
+    const s = SC[i % SC.length]; i++;
+    RES.classList.remove('show'); M.textContent = s.m; W.textContent = ''; P.textContent = ''; P.classList.add('cur');
+    let k = 0;
+    (function type(){ if (!active) return; P.textContent = s.p.slice(0, ++k); if (k < s.p.length) timer = setTimeout(type, 38); else {
+      P.classList.remove('cur'); W.textContent = s.w;
+      timer = setTimeout(() => {
+        C.textContent = s.c; C.className = 'code ' + (s.v === 'finding' ? 'bad' : 'ok');
+        MSG.textContent = s.msg; V.textContent = s.v; V.className = 'verdict ' + s.v;
+        RES.classList.add('show'); timer = setTimeout(play, 2600);
+      }, 500);
+    } })();
+  }
+  new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting && !active){ active = true; timer = setTimeout(play, 1200); } else if (!en.isIntersecting){ active = false; clearTimeout(timer); } })).observe(vis);
+})();
+/* spotlight on the two sides */
+if (fine && !reduce) $$('.spot').forEach(el => el.addEventListener('pointermove', e => { const r = el.getBoundingClientRect(); el.style.setProperty('--mx', (e.clientX - r.left) + 'px'); el.style.setProperty('--my', (e.clientY - r.top) + 'px'); }));
 
 /* ================= text effects ================= */
 function scramble(el, text, dur){
